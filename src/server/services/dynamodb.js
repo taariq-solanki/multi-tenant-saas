@@ -1,0 +1,132 @@
+const AWS = require('aws-sdk');
+const config = require('../config');
+
+// Configure AWS SDK
+AWS.config.update({
+  region: config.aws.region,
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey
+});
+
+// Create DynamoDB DocumentClient
+const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+const TABLE_NAME = config.dynamodb.tableName;
+
+class DynamoDBService {
+  // Create a new tenant/user record
+  async createTenantUser(tenantID, userID, password, data) {
+    const params = {
+      TableName: TABLE_NAME,
+      Item: {
+        tenantID: tenantID,
+        userID: userID,
+        password: password, // In production, this should be hashed
+        data: data || {},
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }
+    };
+
+    try {
+      await dynamodb.put(params).promise();
+      return { success: true, message: 'User created successfully' };
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw new Error('Failed to create user');
+    }
+  }
+
+  // Validate user login
+  async validateUser(tenantID, userID, password) {
+    const params = {
+      TableName: TABLE_NAME,
+      Key: {
+        tenantID: tenantID,
+        userID: userID
+      }
+    };
+
+    try {
+      const result = await dynamodb.get(params).promise();
+      
+      if (!result.Item) {
+        return { success: false, message: 'User not found' };
+      }
+
+      if (password && result.Item.password !== password) {
+        return { success: false, message: 'Invalid password' };
+      }
+
+      return { 
+        success: true, 
+        message: 'Login successful',
+        user: {
+          tenantID: result.Item.tenantID,
+          userID: result.Item.userID,
+          data: result.Item.data
+        }
+      };
+    } catch (error) {
+      console.error('Error validating user:', error);
+      throw new Error('Failed to validate user');
+    }
+  }
+
+  // Get all users for a tenant
+  async getTenantUsers(tenantID) {
+    const params = {
+      TableName: TABLE_NAME,
+      KeyConditionExpression: 'tenantID = :tenantID',
+      ExpressionAttributeValues: {
+        ':tenantID': tenantID
+      }
+    };
+
+    try {
+      const result = await dynamodb.query(params).promise();
+      
+      // Remove password from response for security
+      const users = result.Items.map(item => ({
+        tenantID: item.tenantID,
+        userID: item.userID,
+        data: item.data,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt
+      }));
+
+      return { success: true, users: users };
+    } catch (error) {
+      console.error('Error fetching tenant users:', error);
+      throw new Error('Failed to fetch tenant users');
+    }
+  }
+
+  // ✅ Update user orders (for "Buy Product" feature)
+  async updateUserOrders(tenantID, userID, orders) {
+    const params = {
+      TableName: TABLE_NAME,
+      Key: { tenantID, userID },
+      UpdateExpression: "set #data.#orders = :orders, updatedAt = :updatedAt",
+      ExpressionAttributeNames: {
+        "#data": "data",
+        "#orders": "orders"
+      },
+      ExpressionAttributeValues: {
+        ":orders": orders,
+        ":updatedAt": new Date().toISOString()
+      },
+      ReturnValues: "UPDATED_NEW"
+    };
+
+    try {
+      await dynamodb.update(params).promise();
+      return { success: true, orders };
+    } catch (error) {
+      console.error("Error updating orders:", error);
+      throw new Error("Failed to update orders");
+    }
+  }
+}
+
+module.exports = new DynamoDBService();

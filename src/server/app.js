@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 
 const apiRouter = require("./routes/api");
 
@@ -12,17 +13,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// mount our api router here
+// Enable CORS for frontend
+app.use(
+  cors({
+    origin: "http://localhost:3000", // local dev frontend
+    credentials: true,
+  })
+);
+
+// mount our api router
 app.use("/api", apiRouter);
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, "../client/build")));
+// ✅ Serve React build from root /public
+app.use(express.static(path.join(__dirname, "../../public")));
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
+// ✅ Catchall: send React index.html
 app.get("*", (req, res) => {
-  console.log("req.path", req.path);
-  res.sendFile(path.join(__dirname + "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../../public", "index.html"));
 });
 
 module.exports = app;

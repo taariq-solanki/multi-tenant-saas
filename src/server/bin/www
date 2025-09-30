@@ -6,12 +6,13 @@
 
 const app = require("../app");
 const http = require("http");
+const config = require("../config");
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "4000"); // cause React will serve on 3000 locally
+const port = normalizePort(config.server.port);
 app.set("port", port);
 
 /**
