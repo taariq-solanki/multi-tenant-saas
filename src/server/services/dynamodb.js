@@ -8,8 +8,20 @@ AWS.config.update({
   secretAccessKey: config.aws.secretAccessKey
 });
 
-// Create DynamoDB DocumentClient
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+// Log AWS configuration (without secrets)
+console.log('AWS Config:', {
+  region: config.aws.region,
+  hasAccessKey: !!config.aws.accessKeyId,
+  hasSecretKey: !!config.aws.secretAccessKey,
+  tableName: config.dynamodb.tableName
+});
+
+// Create DynamoDB DocumentClient with timeout
+const dynamodb = new AWS.DynamoDB.DocumentClient({
+  httpOptions: {
+    timeout: 10000 // 10 second timeout
+  }
+});
 
 const TABLE_NAME = config.dynamodb.tableName;
 
