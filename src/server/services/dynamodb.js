@@ -1,12 +1,21 @@
-const AWS = require('aws-sdk');
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, PutCommand, GetCommand, QueryCommand, UpdateCommand } = require('@aws-sdk/lib-dynamodb');
 const config = require('../config');
 
-// Configure AWS SDK
-AWS.config.update({
+// Configure AWS SDK v3
+const client = new DynamoDBClient({
   region: config.aws.region,
-  accessKeyId: config.aws.accessKeyId,
-  secretAccessKey: config.aws.secretAccessKey
+  credentials: {
+    accessKeyId: config.aws.accessKeyId,
+    secretAccessKey: config.aws.secretAccessKey
+  },
+  requestHandler: {
+    requestTimeout: 10000 // 10 second timeout
+  }
 });
+
+// Create DynamoDB DocumentClient
+const dynamodb = DynamoDBDocumentClient.from(client);
 
 // Log AWS configuration (without secrets)
 console.log('AWS Config:', {
@@ -14,13 +23,6 @@ console.log('AWS Config:', {
   hasAccessKey: !!config.aws.accessKeyId,
   hasSecretKey: !!config.aws.secretAccessKey,
   tableName: config.dynamodb.tableName
-});
-
-// Create DynamoDB DocumentClient with timeout
-const dynamodb = new AWS.DynamoDB.DocumentClient({
-  httpOptions: {
-    timeout: 10000 // 10 second timeout
-  }
 });
 
 const TABLE_NAME = config.dynamodb.tableName;
@@ -41,11 +43,11 @@ class DynamoDBService {
     };
 
     try {
-      await dynamodb.put(params).promise();
+      await dynamodb.send(new PutCommand(params));
       return { success: true, message: 'User created successfully' };
     } catch (error) {
       console.error('Error creating user:', error);
-      throw new Error('Failed to create user');
+      return { success: false, message: 'Failed to create user: ' + error.message };
     }
   }
 
@@ -60,7 +62,7 @@ class DynamoDBService {
     };
 
     try {
-      const result = await dynamodb.get(params).promise();
+      const result = await dynamodb.send(new GetCommand(params));
       
       if (!result.Item) {
         return { success: false, message: 'User not found' };
@@ -81,7 +83,7 @@ class DynamoDBService {
       };
     } catch (error) {
       console.error('Error validating user:', error);
-      throw new Error('Failed to validate user');
+      return { success: false, message: 'Failed to validate user: ' + error.message };
     }
   }
 
@@ -96,7 +98,7 @@ class DynamoDBService {
     };
 
     try {
-      const result = await dynamodb.query(params).promise();
+      const result = await dynamodb.send(new QueryCommand(params));
       
       // Remove password from response for security
       const users = result.Items.map(item => ({
@@ -110,7 +112,7 @@ class DynamoDBService {
       return { success: true, users: users };
     } catch (error) {
       console.error('Error fetching tenant users:', error);
-      throw new Error('Failed to fetch tenant users');
+      return { success: false, message: 'Failed to fetch tenant users: ' + error.message };
     }
   }
 
@@ -132,11 +134,11 @@ class DynamoDBService {
     };
 
     try {
-      await dynamodb.update(params).promise();
+      await dynamodb.send(new UpdateCommand(params));
       return { success: true, orders };
     } catch (error) {
       console.error("Error updating orders:", error);
-      throw new Error("Failed to update orders");
+      return { success: false, message: "Failed to update orders: " + error.message };
     }
   }
 }

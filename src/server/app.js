@@ -9,8 +9,10 @@ const apiRouter = require("./routes/api");
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// ✅ Parse JSON and URL-encoded data properly
+app.use(express.json({ limit: "10mb", type: "application/json" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
 app.use(cookieParser());
 
 // ✅ Allow local + EB frontend dynamically

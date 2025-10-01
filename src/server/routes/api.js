@@ -12,10 +12,44 @@ router.post("/signup", async (req, res) => {
   console.log("Incoming /signup body:", req.body);
   try {
     const { tenantID, userID, password, data } = req.body;
+    
+    // Enhanced validation
     if (!tenantID || !userID || !password) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
+      return res.status(400).json({ 
+        success: false, 
+        message: "Missing required fields: tenantID, userID, and password are required" 
+      });
     }
-    const result = await dynamoDBService.createTenantUser(tenantID, userID, password, data);
+    
+    // Validate field types and lengths
+    if (typeof tenantID !== 'string' || tenantID.trim().length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "tenantID must be a non-empty string" 
+      });
+    }
+    
+    if (typeof userID !== 'string' || userID.trim().length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "userID must be a non-empty string" 
+      });
+    }
+    
+    if (typeof password !== 'string' || password.length < 3) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "password must be at least 3 characters long" 
+      });
+    }
+    
+    const result = await dynamoDBService.createTenantUser(
+      tenantID.trim(), 
+      userID.trim(), 
+      password, 
+      data || {}
+    );
+    
     if (result.success) {
       res.status(201).json({ success: true, message: "User created successfully" });
     } else {
@@ -29,14 +63,51 @@ router.post("/signup", async (req, res) => {
 
 // Login
 router.post("/login", async (req, res) => {
+  console.log("Incoming /login body:", req.body);
   try {
     const { tenantID, userID, password } = req.body;
+    
+    // Enhanced validation
     if (!tenantID || !userID || !password) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
+      return res.status(400).json({ 
+        success: false, 
+        message: "Missing required fields: tenantID, userID, and password are required" 
+      });
     }
-    const result = await dynamoDBService.validateUser(tenantID, userID, password);
-    if (result.success) res.status(200).json(result);
-    else res.status(401).json(result);
+    
+    // Validate field types and lengths
+    if (typeof tenantID !== 'string' || tenantID.trim().length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "tenantID must be a non-empty string" 
+      });
+    }
+    
+    if (typeof userID !== 'string' || userID.trim().length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "userID must be a non-empty string" 
+      });
+    }
+    
+    if (typeof password !== 'string' || password.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "password is required" 
+      });
+    }
+    
+    const result = await dynamoDBService.validateUser(
+      tenantID.trim(), 
+      userID.trim(), 
+      password
+    );
+    
+    if (result.success) {
+      res.status(200).json(result);
+    } else {
+      res.status(401).json(result);
+    }
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
