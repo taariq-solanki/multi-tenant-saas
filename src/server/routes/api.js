@@ -9,6 +9,7 @@ router.get("/ping", (req, res) => {
 
 // Signup
 router.post("/signup", async (req, res) => {
+  console.log("Incoming /signup body:", req.body);
   try {
     const { tenantID, userID, password, data } = req.body;
     if (!tenantID || !userID || !password) {
