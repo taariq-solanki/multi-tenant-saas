@@ -15,7 +15,11 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
     const result = await dynamoDBService.createTenantUser(tenantID, userID, password, data);
-    res.status(201).json(result);
+    if (result.success) {
+      res.status(201).json({ success: true, message: "User created successfully" });
+    } else {
+      res.status(400).json(result);
+    }
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).json({ success: false, message: "Internal server error" });

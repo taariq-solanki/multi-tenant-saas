@@ -27,17 +27,22 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
-    
+
     setLoading(true);
-    
+
     try {
       const result = await signup(tenantID, userID, password, { orders: [] });
-      toast.success(result.message);
+
+      if (result.success) {
+        toast.success(result.message || "Signup successful!");
+      } else {
+        toast.error(result.message || "Signup failed.");
+      }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
     } finally {

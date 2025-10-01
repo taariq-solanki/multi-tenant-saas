@@ -13,12 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// ✅ Allow local + EB frontend
+// ✅ Allow local + EB frontend dynamically
 app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://my-saas-app-env.eba-6pq3ppyc.ap-south-1.elasticbeanstalk.com"
+      /\.elasticbeanstalk\.com$/,
     ],
     credentials: true,
   })
