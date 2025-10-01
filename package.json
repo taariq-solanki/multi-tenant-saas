@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node src/server/bin/www",
     "dev": "concurrently \"cd src/server && nodemon\" \"cd src/client && npm start\"",
-    "build": "cd src/client && npm install && CI=false npm run build",
-    "postinstall": ""   // ❌ Remove build from here
+    "build": "cd src/client && npm install && npm run build"
   },
   "dependencies": {
     "aws-sdk": "^2.1691.0",
