@@ -34,20 +34,20 @@ export default function Signup() {
     }
 
     setLoading(true);
-
     try {
       const result = await signup(tenantID, userID, password, { orders: [] });
-
+    
       if (result.success) {
         toast.success(result.message || "Signup successful!");
       } else {
         toast.error(result.message || "Signup failed.");
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      toast.error(error.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (

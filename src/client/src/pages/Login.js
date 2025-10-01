@@ -29,20 +29,22 @@ export default function Login({ onLogin }) {
     
     try {
       const result = await login(tenantID, userID, password);
+    
       if (result.success) {
         onLogin(tenantID, userID);
-        toast.success("Login successful! Redirecting to dashboard...");
+        toast.success(result.message || "Login successful! Redirecting...");
         setTimeout(() => {
           navigate("/dashboard");
         }, 1500);
       } else {
-        toast.error(result.message);
+        toast.error(result.message || "Login failed.");
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      toast.error(error.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (
