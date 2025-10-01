@@ -24,3 +24,4 @@ const Badge = React.forwardRef(({ className, variant = "default", ...props }, re
 Badge.displayName = "Badge";
 
 export { Badge };
+

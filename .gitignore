@@ -1,1 +1,10 @@
 node_modules/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Allow Elastic Beanstalk deployment configuration files
+!.ebextensions/
+!.platform/

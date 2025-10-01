@@ -1,4 +1,4 @@
 #!/bin/bash
-# Force install Node 18 on the EB instance
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-yum install -y nodejs
+# Install Node.js 22.x for Elastic Beanstalk
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs
