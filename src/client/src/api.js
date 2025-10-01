@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:4000/api"; // later we’ll change this to AWS URL
+const API_BASE = "/api"; // Use relative URL for production deployment
 
 export async function signup(tenantID, userID, password, data) {
   const response = await fetch(`${API_BASE}/signup`, {
