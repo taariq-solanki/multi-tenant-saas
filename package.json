@@ -6,7 +6,7 @@
     "start": "node src/server/bin/www",
     "dev": "concurrently \"cd src/server && nodemon\" \"cd src/client && npm start\"",
     "build": "cd src/client && npm install && CI=false npm run build",
-    "postinstall": "npm run build && cp -r src/client/build ./public"
+    "postinstall": ""   // ❌ Remove build from here
   },
   "dependencies": {
     "aws-sdk": "^2.1691.0",
