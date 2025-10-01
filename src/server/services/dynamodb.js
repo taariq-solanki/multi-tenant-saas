@@ -1,21 +1,19 @@
-const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient, PutCommand, GetCommand, QueryCommand, UpdateCommand } = require('@aws-sdk/lib-dynamodb');
+const AWS = require('aws-sdk');
 const config = require('../config');
 
-// Configure AWS SDK v3
-const client = new DynamoDBClient({
+// Configure AWS SDK
+AWS.config.update({
   region: config.aws.region,
-  credentials: {
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey
-  },
-  requestHandler: {
-    requestTimeout: 10000 // 10 second timeout
-  }
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey
 });
 
-// Create DynamoDB DocumentClient
-const dynamodb = DynamoDBDocumentClient.from(client);
+// Create DynamoDB DocumentClient with timeout
+const dynamodb = new AWS.DynamoDB.DocumentClient({
+  httpOptions: {
+    timeout: 10000 // 10 second timeout
+  }
+});
 
 // Log AWS configuration (without secrets)
 console.log('AWS Config:', {
@@ -43,7 +41,7 @@ class DynamoDBService {
     };
 
     try {
-      await dynamodb.send(new PutCommand(params));
+      await dynamodb.put(params).promise();
       return { success: true, message: 'User created successfully' };
     } catch (error) {
       console.error('Error creating user:', error);
@@ -62,7 +60,7 @@ class DynamoDBService {
     };
 
     try {
-      const result = await dynamodb.send(new GetCommand(params));
+      const result = await dynamodb.get(params).promise();
       
       if (!result.Item) {
         return { success: false, message: 'User not found' };
@@ -98,7 +96,7 @@ class DynamoDBService {
     };
 
     try {
-      const result = await dynamodb.send(new QueryCommand(params));
+      const result = await dynamodb.query(params).promise();
       
       // Remove password from response for security
       const users = result.Items.map(item => ({
@@ -134,7 +132,7 @@ class DynamoDBService {
     };
 
     try {
-      await dynamodb.send(new UpdateCommand(params));
+      await dynamodb.update(params).promise();
       return { success: true, orders };
     } catch (error) {
       console.error("Error updating orders:", error);
