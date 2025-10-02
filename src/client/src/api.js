@@ -1,12 +1,20 @@
-const API_BASE = "/api"; // Relative URL for production (proxied to server)
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:4000/api"; // Use correct server port
 
 // ✅ Signup
-export async function signup(tenantID, userID, password, data) {
+export async function signup(tenantID, userID, password) {
   try {
     const response = await fetch(`${API_BASE}/signup`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tenantID, userID, password, data }),
+      headers: { 
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ 
+        tenantID, 
+        userID, 
+        password, 
+        data: { orders: [] }
+      }),
     });
 
     const result = await response.json();

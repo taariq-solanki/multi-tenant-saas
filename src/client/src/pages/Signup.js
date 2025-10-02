@@ -35,7 +35,11 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      const result = await signup(tenantID, userID, password, { orders: [] });
+      console.log("Signup payload being sent:", { tenantID, userID, password });
+      
+      const result = await signup(tenantID, userID, password);
+      
+      console.log("Signup response received:", result);
     
       if (result.success) {
         toast.success(result.message || "Signup successful!");
