@@ -21,6 +21,7 @@ export default function Login({ onLogin }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userType, setUserType] = useState("user"); // "tenant" or "user"
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -28,7 +29,11 @@ export default function Login({ onLogin }) {
     setLoading(true);
     
     try {
+      console.log("Login attempt with:", { tenantID, userID, password: "***" });
+      
       const result = await login(tenantID, userID, password);
+      
+      console.log("Login result:", result);
     
       if (result.success) {
         onLogin(tenantID, userID);
@@ -37,9 +42,11 @@ export default function Login({ onLogin }) {
           navigate("/dashboard");
         }, 1500);
       } else {
+        console.error("Login failed:", result.message);
         toast.error(result.message || "Login failed.");
       }
     } catch (error) {
+      console.error("Login error:", error);
       toast.error(error.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
@@ -111,6 +118,46 @@ export default function Login({ onLogin }) {
               onSubmit={handleSubmit}
             >
               <div className="space-y-4">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="space-y-2"
+                >
+                  <Label className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span>Login As</span>
+                  </Label>
+                  <div className="flex space-x-4">
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="userType"
+                        value="tenant"
+                        checked={userType === "tenant"}
+                        onChange={(e) => setUserType(e.target.value)}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        🏢 Tenant Admin
+                      </span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="userType"
+                        value="user"
+                        checked={userType === "user"}
+                        onChange={(e) => setUserType(e.target.value)}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        👤 Regular User
+                      </span>
+                    </label>
+                  </div>
+                </motion.div>
+
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

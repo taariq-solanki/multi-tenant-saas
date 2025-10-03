@@ -24,6 +24,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userType, setUserType] = useState("tenant"); // "tenant" or "user"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,9 +36,9 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      console.log("Signup payload being sent:", { tenantID, userID, password });
+      console.log("Signup payload being sent:", { tenantID, userID, password, userType });
       
-      const result = await signup(tenantID, userID, password);
+      const result = await signup(tenantID, userID, password, { userType });
       
       console.log("Signup response received:", result);
     
@@ -121,19 +122,65 @@ export default function Signup() {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="space-y-2"
+                >
+                  <Label className="flex items-center space-x-2">
+                    <UserPlus className="w-4 h-4" />
+                    <span>Account Type</span>
+                  </Label>
+                  <div className="flex space-x-4">
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="userType"
+                        value="tenant"
+                        checked={userType === "tenant"}
+                        onChange={(e) => setUserType(e.target.value)}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        🏢 Tenant Admin
+                      </span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="userType"
+                        value="user"
+                        checked={userType === "user"}
+                        onChange={(e) => setUserType(e.target.value)}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        👤 Regular User
+                      </span>
+                    </label>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {userType === "tenant" 
+                      ? "Create a new tenant organization and become the admin"
+                      : "Join an existing tenant organization as a regular user"
+                    }
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.7 }}
                   className="space-y-2"
                 >
                   <Label htmlFor="tenantID" className="flex items-center space-x-2">
                     <Building2 className="w-4 h-4" />
-                    <span>Tenant ID</span>
+                    <span>{userType === "tenant" ? "Your Tenant ID" : "Tenant ID to Join"}</span>
                   </Label>
                   <Input
                     id="tenantID"
                     name="tenantID"
                     type="text"
                     required
-                    placeholder="Enter your tenant ID"
+                    placeholder={userType === "tenant" ? "Choose your tenant ID (e.g., mycompany)" : "Enter existing tenant ID to join"}
                     value={tenantID}
                     onChange={(e) => setTenantID(e.target.value)}
                     className="bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"

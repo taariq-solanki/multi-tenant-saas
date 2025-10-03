@@ -35,6 +35,8 @@ class DynamoDBService {
         userID: userID,
         password: password, // In production, this should be hashed
         data: data || {},
+        userType: data?.userType || "user",
+        role: data?.role || "user",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       }

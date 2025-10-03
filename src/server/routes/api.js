@@ -12,6 +12,7 @@ router.post("/signup", async (req, res) => {
   console.log("Incoming /signup body:", req.body);
   try {
     const { tenantID, userID, password, data } = req.body;
+    const userType = data?.userType || "user"; // Default to regular user
     
     // Enhanced validation
     if (!tenantID || !userID || !password) {
@@ -47,11 +48,16 @@ router.post("/signup", async (req, res) => {
       tenantID.trim(), 
       userID.trim(), 
       password, 
-      data || {}
+      { ...data, userType, role: userType === "tenant" ? "admin" : "user" }
     );
     
     if (result.success) {
-      res.status(201).json({ success: true, message: "User created successfully" });
+      res.status(201).json({ 
+        success: true, 
+        message: userType === "tenant" 
+          ? "Tenant admin account created successfully!" 
+          : "User account created successfully!"
+      });
     } else {
       res.status(400).json(result);
     }

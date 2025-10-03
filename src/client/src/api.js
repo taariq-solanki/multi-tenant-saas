@@ -1,7 +1,7 @@
 const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:4000/api"; // Use correct server port
 
 // ✅ Signup
-export async function signup(tenantID, userID, password) {
+export async function signup(tenantID, userID, password, additionalData = {}) {
   try {
     const response = await fetch(`${API_BASE}/signup`, {
       method: "POST",
@@ -13,7 +13,7 @@ export async function signup(tenantID, userID, password) {
         tenantID, 
         userID, 
         password, 
-        data: { orders: [] }
+        data: { orders: [], ...additionalData }
       }),
     });
 
@@ -30,18 +30,26 @@ export async function signup(tenantID, userID, password) {
 // ✅ Login
 export async function login(tenantID, userID, password) {
   try {
+    console.log("API: Making login request to:", `${API_BASE}/login`);
+    console.log("API: Request payload:", { tenantID, userID, password: "***" });
+    
     const response = await fetch(`${API_BASE}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tenantID, userID, password }),
     });
 
+    console.log("API: Response status:", response.status);
+    
     const result = await response.json();
+    console.log("API: Response body:", result);
+    
     if (!response.ok) {
       return { success: false, message: result.message || "Login failed" };
     }
     return result;
   } catch (error) {
+    console.error("API: Login error:", error);
     return { success: false, message: "Network error: " + error.message };
   }
 }
