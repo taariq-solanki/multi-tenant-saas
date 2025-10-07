@@ -395,8 +395,8 @@ function App() {
   return (
     <ThemeProvider>
       <CartProvider>
-        <div className="min-h-screen bg-background">
-          
+        <Router>
+          <div className="min-h-screen bg-background">
             <Navbar tenantID={tenantID} userID={userID} />
             <CartDrawer tenantID={tenantID} userID={userID} />
             <AnimatedRoutes
@@ -405,9 +405,9 @@ function App() {
               userID={userID}
               setUserID={setUserID}
             />
-          
-          <Toaster position="top-right" />
-        </div>
+            <Toaster position="top-right" />
+          </div>
+        </Router>
       </CartProvider>
     </ThemeProvider>
   );
