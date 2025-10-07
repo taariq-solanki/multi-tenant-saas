@@ -80,30 +80,30 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                        className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-xl border border-gray-200 dark:border-gray-700"
                      >
                        <h1 className="text-6xl md:text-7xl font-black text-gray-900 dark:text-white mb-6 tracking-tight">
-                         Welcome to <span className="text-blue-600 dark:text-blue-400">Mkarter</span>
+                         Shop Smart with <span className="text-blue-600 dark:text-blue-400">Mkarter</span>
                        </h1>
                        <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8 font-medium">
-                         Your modern multi-tenant e-commerce platform
+                         Your ultimate online shopping destination
                        </p>
                      <p className="text-lg text-gray-500 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-                       Experience the future of online shopping with Mkarter - a powerful, scalable e-commerce solution 
-                       designed for businesses of all sizes. From small startups to enterprise corporations, 
-                       Mkarter provides everything you need to build, manage, and scale your online store.
+                       Discover amazing products, enjoy seamless shopping experience, and get the best deals. 
+                       From electronics to fashion, home goods to gadgets - find everything you need in one place. 
+                       Fast delivery, secure payments, and 24/7 customer support.
                      </p>
                      <div className="max-w-4xl mx-auto mb-12">
                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">🚀 Start Your Business Today</h3>
+                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">🛍️ Shop with Confidence</h3>
                            <p className="text-gray-600 dark:text-gray-300 text-sm">
-                             Launch your online store in minutes with our intuitive setup wizard. No technical knowledge required - 
-                             just follow our step-by-step guide and start selling immediately.
+                             Browse thousands of verified products from trusted sellers. Secure checkout, buyer protection, 
+                             and easy returns make shopping worry-free.
                            </p>
                          </div>
                          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">📈 Scale Without Limits</h3>
+                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">⚡ Lightning Fast Delivery</h3>
                            <p className="text-gray-600 dark:text-gray-300 text-sm">
-                             From 10 to 10,000 customers - our platform grows with your business. Advanced infrastructure 
-                             ensures lightning-fast performance even during peak traffic periods.
+                             Get your orders delivered in 1-2 days with our premium shipping network. 
+                             Track your packages in real-time and receive notifications at every step.
                            </p>
                          </div>
                        </div>
@@ -135,10 +135,10 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                      <div className="text-center mb-16">
                        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                         About <span className="text-blue-600 dark:text-blue-400">Mkarter</span>
+                         Why Choose <span className="text-blue-600 dark:text-blue-400">Mkarter</span>
                        </h2>
                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                         We're revolutionizing e-commerce with cutting-edge technology and innovative solutions
+                         We're your trusted shopping partner, offering the best products at unbeatable prices
                        </p>
                      </div>
                      
@@ -152,9 +152,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-blue-100 dark:bg-blue-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">🚀</span>
                          </div>
-                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Fast & Scalable</h3>
+                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Best Prices Guaranteed</h3>
                          <p className="text-gray-600 dark:text-gray-300">
-                           Built for performance with lightning-fast load times and unlimited scalability to grow with your business.
+                           We compare prices across the market to ensure you get the best deals. Price match guarantee on all products.
                          </p>
                        </motion.div>
                        
@@ -167,9 +167,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-green-100 dark:bg-green-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">🔒</span>
                          </div>
-                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Secure & Reliable</h3>
+                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Secure Shopping</h3>
                          <p className="text-gray-600 dark:text-gray-300">
-                           Enterprise-grade security with 99.9% uptime guarantee. Your data and customers are always protected.
+                           Your personal and payment information is protected with bank-level encryption. Shop with complete peace of mind.
                          </p>
                        </motion.div>
                        
@@ -182,9 +182,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-purple-100 dark:bg-purple-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">🎯</span>
                          </div>
-                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Easy to Use</h3>
+                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Easy Returns</h3>
                          <p className="text-gray-600 dark:text-gray-300">
-                           Intuitive interface designed for both beginners and experts. Get started in minutes, not hours.
+                           30-day hassle-free returns on all products. Free return shipping and instant refunds for your convenience.
                          </p>
                        </motion.div>
                      </div>
@@ -196,10 +196,10 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                      <div className="text-center mb-16">
                        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                         Why Choose <span className="text-blue-600 dark:text-blue-400">Mkarter</span>
+                         Shopping Features
                        </h2>
                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                         Discover the features that make Mkarter the perfect choice for your e-commerce needs
+                         Everything you need for the perfect shopping experience
                        </p>
                      </div>
                      
@@ -213,9 +213,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-orange-100 dark:bg-orange-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">💳</span>
                          </div>
-                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Payment Processing</h3>
+                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Multiple Payment Options</h3>
                          <p className="text-gray-600 dark:text-gray-300 text-sm">
-                           Secure payment processing with multiple payment gateways and fraud protection.
+                           Pay with credit cards, digital wallets, or buy now pay later. All transactions are secure and encrypted.
                          </p>
                        </motion.div>
                        
@@ -228,9 +228,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-red-100 dark:bg-red-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">📱</span>
                          </div>
-                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Mobile Responsive</h3>
+                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Mobile Shopping</h3>
                          <p className="text-gray-600 dark:text-gray-300 text-sm">
-                           Fully responsive design that works perfectly on all devices and screen sizes.
+                           Shop on the go with our mobile-optimized experience. Browse, compare, and buy from anywhere.
                          </p>
                        </motion.div>
                        
@@ -243,9 +243,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-yellow-100 dark:bg-yellow-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">📊</span>
                          </div>
-                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Analytics</h3>
+                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Smart Recommendations</h3>
                          <p className="text-gray-600 dark:text-gray-300 text-sm">
-                           Comprehensive analytics and reporting tools to track your business performance.
+                           AI-powered product recommendations based on your browsing history and preferences.
                          </p>
                        </motion.div>
                        
@@ -258,9 +258,9 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                          <div className="bg-indigo-100 dark:bg-indigo-900/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                            <span className="text-2xl">🛒</span>
                          </div>
-                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Shopping Cart</h3>
+                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Wishlist & Save</h3>
                          <p className="text-gray-600 dark:text-gray-300 text-sm">
-                           Advanced shopping cart with wishlist, recommendations, and quick checkout.
+                           Save your favorite items to wishlist, get price drop alerts, and never miss a deal.
                          </p>
                        </motion.div>
                      </div>
@@ -272,10 +272,10 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                      <div className="text-center mb-16">
                        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                         What Our <span className="text-blue-600 dark:text-blue-400">Customers</span> Say
+                         What Our <span className="text-blue-600 dark:text-blue-400">Shoppers</span> Say
                        </h2>
                        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                         Join thousands of satisfied customers who trust Mkarter for their e-commerce needs
+                         Join thousands of happy customers who love shopping with Mkarter
                        </p>
                      </div>
                      
@@ -292,12 +292,12 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                            </div>
                            <div className="ml-4">
                              <h4 className="font-semibold text-gray-900 dark:text-white">John Smith</h4>
-                             <p className="text-gray-600 dark:text-gray-300 text-sm">CEO, TechCorp</p>
+                             <p className="text-gray-600 dark:text-gray-300 text-sm">Verified Customer</p>
                            </div>
                          </div>
                          <p className="text-gray-600 dark:text-gray-300">
-                           "Mkarter has revolutionized our e-commerce operations. The platform is incredibly user-friendly and the analytics are outstanding. 
-                           We've seen a 300% increase in sales since switching to Mkarter."
+                           "I love shopping on Mkarter! The prices are amazing and delivery is super fast. 
+                           I've been a customer for 2 years and never had any issues. Highly recommended!"
                          </p>
                          <div className="mt-4 flex items-center">
                            <span className="text-yellow-400 text-sm">★★★★★</span>
@@ -317,12 +317,12 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                            </div>
                            <div className="ml-4">
                              <h4 className="font-semibold text-gray-900 dark:text-white">Sarah Johnson</h4>
-                             <p className="text-gray-600 dark:text-gray-300 text-sm">Founder, StartupXYZ</p>
+                             <p className="text-gray-600 dark:text-gray-300 text-sm">Verified Customer</p>
                            </div>
                          </div>
                          <p className="text-gray-600 dark:text-gray-300">
-                           "The scalability of Mkarter is impressive. We've grown from 10 to 10,000 customers without any issues. 
-                           The customer support team is exceptional and always available when we need help."
+                           "Best online shopping experience ever! Great product selection, easy checkout, and excellent customer service. 
+                           I always find what I'm looking for at great prices."
                          </p>
                          <div className="mt-4 flex items-center">
                            <span className="text-yellow-400 text-sm">★★★★★</span>
@@ -342,12 +342,12 @@ function AnimatedRoutes({ tenantID, setTenantID, userID, setUserID }) {
                            </div>
                            <div className="ml-4">
                              <h4 className="font-semibold text-gray-900 dark:text-white">Mike Chen</h4>
-                             <p className="text-gray-600 dark:text-gray-300 text-sm">CTO, RetailPlus</p>
+                             <p className="text-gray-600 dark:text-gray-300 text-sm">Verified Customer</p>
                            </div>
                          </div>
                          <p className="text-gray-600 dark:text-gray-300">
-                           "The security features and uptime are exceptional. Our customers trust us more because of Mkarter's reliability. 
-                           The fraud detection system has saved us thousands in potential losses."
+                           "Mkarter has everything I need! From electronics to home goods, the quality is always top-notch. 
+                           Fast shipping and easy returns make it my go-to shopping destination."
                          </p>
                          <div className="mt-4 flex items-center">
                            <span className="text-yellow-400 text-sm">★★★★★</span>
